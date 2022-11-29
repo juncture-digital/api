@@ -1,0 +1,9 @@
+__pycache__
+*.pyc
+*.cache
+gcreds.json
+creds.yaml
+config.yaml
+.venv
+aws-creds
+aws/build
