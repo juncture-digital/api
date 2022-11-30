@@ -412,9 +412,9 @@ def to_html(md_source, prefix, ref, base_url, env='PROD', host=None, inline=Fals
     footer = soup.find('ve-footer')
     if prefix:
       for el in soup.find_all('ve-image'):
-        el.attrs['anno-base'] = prefix + f'/{md_source.path}' if md_source.path else ''
+        el.attrs['anno-base'] = prefix + f'{md_source.path}' if md_source.path else ''
       for el in soup.find_all('ve-media'):
-        el.attrs['anno-base'] = prefix + f'/{md_source.path}' if md_source.path else ''
+        el.attrs['anno-base'] = prefix + f'{md_source.path}' if md_source.path else ''
     template = open(f'{STATICDIR}/v2/index.html', 'r').read()
     if prefix: template = template.replace('window.PREFIX = null', f"window.PREFIX = '{prefix}';")
     if ref: template = template.replace('window.REF = null', f"window.REF = '{ref}';")
