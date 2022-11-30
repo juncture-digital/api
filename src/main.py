@@ -46,10 +46,10 @@ app.mount('/static', StaticFiles(directory='static'), name='static')
 
 CONFIG = yaml.load(open(f'{SCRIPT_DIR}/creds.yaml', 'r').read(), Loader=yaml.FullLoader)
 
-web_components_source = 'https://unpkg.com/visual-essays/dist/visual-essays/visual-essays.esm.js'
-local_web_components_source = 'http://localhost:3333/build/visual-essays.esm.js'
+web_components_source = 'https://unpkg.com/juncture-digital/dist/juncture-digital/juncture-digital.esm.js'
+local_web_components_source = 'http://localhost:3333/build/juncture-digital.esm.js'
 
-default_prefix = 'visual-essays/content'
+default_prefix = 'juncture-digital/content'
 # default_prefix = 'a3b5125'
 
 app.add_middleware(

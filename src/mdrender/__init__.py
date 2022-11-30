@@ -388,8 +388,7 @@ def to_html(md_source, prefix, ref, base_url, env='PROD', host=None, inline=Fals
 
   css = ''
   api_static_root_js = f'http://{host}:8000/static' if env == 'DEV' else 'https://api.juncture-digital.org/static'
-  webapp_static_root_js = f'http://{host}:8080/static' if env == 'DEV' else 'https://visual-essays.github.io/web-app/static'
-  css_root = f'http://localhost:3333/build' if env == 'DEV' else 'https://unpkg.com/visual-essays/dist/visual-essays'
+  css_root = f'http://localhost:3333/build' if env == 'DEV' else 'https://unpkg.com/juncture-digital/dist/juncture-digital'
   
   is_v1 = soup.find('param') is not None
   if is_v1:
@@ -424,10 +423,10 @@ def to_html(md_source, prefix, ref, base_url, env='PROD', host=None, inline=Fals
     
     if inline:
       # css += '\n' + fetch_css(f'{webapp_static_root_js}/{"base" if custom_style else "all"}.css', refresh=env=='DEV')
-      css += '\n' + fetch_css(f'{css_root}/visual-essays.css', refresh=env=='DEV')
+      css += '\n' + fetch_css(f'{css_root}/juncture-digital.css', refresh=env=='DEV')
     else:
       # add_link(template, f'{webapp_static_root_js}/{"base" if custom_style else "all"}.css', {'rel': 'stylesheet'})
-      add_link(template, 'https://unpkg.com/visual-essays/dist/visual-essays/visual-essays.css', {'rel': 'stylesheet'})
+      add_link(template, 'https://unpkg.com/juncture-digital/dist/juncture-digital/juncture-digital.css', {'rel': 'stylesheet'})
 
     if custom_style:
       if custom_style.attrs.get('href'):

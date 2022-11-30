@@ -630,7 +630,7 @@ Vue.mixin({
       } else {
         e = document.createElement('script')
         e.src = url
-        e.type = url.indexOf('visual-essays.esm.js') > 0 ? 'module' : 'text/javascript'
+        e.type = url.indexOf('juncture-digital.esm.js') > 0 ? 'module' : 'text/javascript'
       }
       e.addEventListener('load', callback)
       document.getElementsByTagName('head')[0].appendChild(e)
