@@ -166,7 +166,7 @@ async def markdown_to_html(
   base_url = base if base else referrer if referrer else '/'
   logger.debug(f'html: base_url={base_url} referrer={referrer} markdown_size={len(markdown)}')
   html = get_html(
-    path=payload['path'],
+    path=payload.get('path'),
     markdown=markdown,
     prefix=prefix,
     base_url=base_url, 
