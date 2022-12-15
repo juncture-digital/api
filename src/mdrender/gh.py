@@ -40,7 +40,8 @@ def _get_gh_file(acct, repo, path, ref=None):
     logger.debug(f'get_gh_file: acct={acct} repo={repo} path={path} ref={ref}')
     ref = ref if ref else get_default_branch(acct, repo)
     url = f'https://api.github.com/repos/{acct}/{repo}/contents{path}?ref={ref}'
-    return _get_gh_file_by_url(url)
+    content, url, sha = _get_gh_file_by_url(url)
+    return content, url, sha, ref
 
 def put_gh_file(acct, repo, target, contents, sha, token, ref=None):
     ref = ref if ref else get_default_branch(acct, repo)
@@ -108,13 +109,13 @@ def get_gh_file(path, ref=None):
                 paths = [f'{path}{file}' for file in ('README.md', 'index.md')]
             else:
                 paths = [f'{path}.md'] + [f'{path}/{file}' for file in ('README.md', 'index.md')]
-    # logger.info(f'get_gh_file: acct={acct} repo={repo} ref={ref} paths={paths}')
+    logger.info(f'get_gh_file: acct={acct} repo={repo} ref={ref} paths={paths}')
     for _path in paths:
-        markdown, url, sha = _get_gh_file(acct, repo, _path, ref)
+        markdown, url, sha, ref = _get_gh_file(acct, repo, _path, ref)
         if markdown:
             break
     if markdown:
-        source = {'markdown': markdown, 'source': 'github', 'acct': acct, 'repo': repo, 'ref': ref, 'path': path, 'url': url, 'sha': sha}
+        source = {'markdown': markdown, 'source': 'github', 'acct': acct, 'repo': repo, 'ref': ref, 'path': path[1:], 'url': url, 'sha': sha}
         logger.debug(f'get_gh_file: acct={acct} repo={repo} ref={ref} path={path}elapsed={round(now()-start,3)}')
         return namedtuple('ObjectName', source.keys())(*source.values())
 

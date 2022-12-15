@@ -412,9 +412,13 @@ def to_html(md_source, prefix, ref, base_url, env='PROD', host=None, inline=Fals
     footer = soup.find('ve-footer')
     if prefix:
       for el in soup.find_all('ve-image'):
-        el.attrs['anno-base'] = prefix + (f'{md_source.path}' if md_source.path != '/' else '')
+        el.attrs['anno-base'] = prefix + (f'/{md_source.path}' if md_source.path != '/' else '')
       for el in soup.find_all('ve-media'):
-        el.attrs['anno-base'] = prefix + (f'{md_source.path}' if md_source.path != '/' else '')
+        el.attrs['anno-base'] = prefix + (f'/{md_source.path}' if md_source.path != '/' else '')
+      for el in soup.find_all('ve-media-beta'):
+        el.attrs['base'] = prefix + (f'/{md_source.path}' if md_source.path != '/' else '')
+      for el in soup.find_all('ve-map'):
+        el.attrs['essay-base'] = f'{prefix}/{ref or md_source.ref}/' + (f'{md_source.path}' if md_source.path != '/' else '')
     template = open(f'{STATICDIR}/v2/index.html', 'r').read()
     if prefix: template = template.replace('window.PREFIX = null', f"window.PREFIX = '{prefix}';")
     if ref: template = template.replace('window.REF = null', f"window.REF = '{ref}';")
@@ -507,7 +511,7 @@ def get_file(path=None, prefix=None, url=None, ref=None, source=None, **kwargs):
 def get_html(path=None, url=None, markdown=None, prefix=None, ref=None, source=None, **kwargs):
   start = now()
   if markdown:
-    source = {'markdown': markdown, 'source': 'input', 'path': path}
+    source = {'markdown': markdown, 'source': 'input', 'path': path, 'ref': 'main'}
     md_source = namedtuple('ObjectName', source.keys())(*source.values())
   else:
     md_source = get_file(path, prefix, url, ref, source)

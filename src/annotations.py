@@ -44,7 +44,7 @@ class Annotations(object):
     annotations = []
     sha = None
     if repo:
-      content, _, sha = _get_gh_file(user, repo, f'{target}.json')
+      content, _, sha, ref = _get_gh_file(user, repo, f'{target}.json')
       if content:
         content = json.loads(content)
         annotations = content['items'] if isinstance(content, dict) and 'items' in content else content

@@ -134,7 +134,7 @@ async def html(
   ENV = 'DEV' if request.client.host in ('127.0.0.1', 'localhost') or request.client.host.startswith('192.168.') else 'PROD'
   referrer = request.headers.get('referer')
   base_url = base if base else referrer if referrer else '/'
-  logger.debug(f'html: path={path} url={url} base_url={base_url} prefix={prefix} ENV={ENV} inline={inline} referrer={referrer}')
+  logger.info(f'html: path={path} url={url} base_url={base_url} prefix={prefix} ENV={ENV} inline={inline} referrer={referrer}')
   html = get_html(
     path=path,
     url=url,
@@ -184,6 +184,7 @@ async def create_annotation(request: Request):
   payload = await request.body()
   kwargs = json.loads(payload)
   kwargs['token'] = request.headers.get('authorization','').split()[-1]
+  logger.info(json.dumps(kwargs,indent=2))
   status_code, created = annos.create_annotation(**kwargs)
   return Response(
     status_code=status_code,
