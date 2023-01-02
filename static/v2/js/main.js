@@ -1,4 +1,4 @@
-const junctureDomains = new Set(['juncture-digital.org', 'beta.juncture-digital.org', 'editor.juncture-digital.org', 'visual-essays.net', 'localhost:8080', 'localhost:5555'])
+const junctureDomains = new Set(['juncture-digital.org', 'beta.juncture-digital.org', 'dev.juncture-digital.org', 'editor.juncture-digital.org', 'visual-essays.net', 'localhost:8080', 'localhost:5555'])
 const isJuncture = junctureDomains.has(location.host)
 let PREFIX = window.PREFIX
 let REF = window.REF

@@ -12,8 +12,7 @@ positional_defaults = {
   've-image': ['src', 'options', 'seq', 'fit'],
   've-map': ['center', 'zoom', 'overlay'],
   've-media': ['manifest'],
-  've-media-beta': ['manifest'],
- 've-meta': ['title', 'description'],
+  've-meta': ['title', 'description'],
   've-style': ['href'],
   've-video': ['src', 'caption'],
 }

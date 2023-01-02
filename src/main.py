@@ -46,9 +46,6 @@ app.mount('/static', StaticFiles(directory='static'), name='static')
 
 CONFIG = yaml.load(open(f'{SCRIPT_DIR}/creds.yaml', 'r').read(), Loader=yaml.FullLoader)
 
-web_components_source = 'https://unpkg.com/juncture-digital/dist/juncture-digital/juncture-digital.esm.js'
-local_web_components_source = 'http://localhost:3333/build/juncture-digital.esm.js'
-
 default_prefix = 'juncture-digital/content'
 # default_prefix = 'a3b5125'
 
@@ -144,8 +141,7 @@ async def html(
     inline=inline,
     env=ENV,
     host=request.client.host,
-    ghp=ghp,
-    web_components_source = local_web_components_source if ENV == 'DEV' else web_components_source
+    ghp=ghp
   )
   if html is None:
     raise HTTPException(status_code=404, detail='Not found')
@@ -172,8 +168,7 @@ async def markdown_to_html(
     base_url=base_url, 
     inline=inline,
     env=ENV,
-    host=request.client.host,
-    web_components_source = local_web_components_source if ENV == 'DEV' else web_components_source
+    host=request.client.host
   )
   if html is None:
     raise HTTPException(status_code=404, detail='Not found')

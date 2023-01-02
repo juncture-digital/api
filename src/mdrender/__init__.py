@@ -360,6 +360,9 @@ def to_html(md_source, prefix, ref, base_url, env='PROD', host=None, inline=Fals
   soup = BeautifulSoup(html, 'html5lib')
 
   convert_urls(soup, md_source, prefix, ref, base_url, ghp)
+  
+  for el in soup.findAll(re.compile("^ve-.+")):
+    el.attrs = dict([(k,v if v != 'true' else None) for k,v in el.attrs.items()])
 
   add_hypothesis = soup.find('ve-add-hypothesis')
   custom_style = soup.find('ve-style')
@@ -431,7 +434,7 @@ def to_html(md_source, prefix, ref, base_url, env='PROD', host=None, inline=Fals
     else:
       # add_link(template, f'{webapp_static_root_js}/{"base" if custom_style else "all"}.css', {'rel': 'stylesheet'})
       add_link(template, 'https://unpkg.com/juncture-digital/dist/juncture-digital/juncture-digital.css', {'rel': 'stylesheet'})
-
+      add_link(template, 'https://unpkg.com/juncture-digital-vue3/dist/assets/css/index.css', {'rel': 'stylesheet'})
     if custom_style:
       if custom_style.attrs.get('href'):
         if custom_style.attrs['href'].startswith('http'):
