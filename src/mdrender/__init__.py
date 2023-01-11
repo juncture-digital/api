@@ -363,6 +363,9 @@ def to_html(md_source, prefix, ref, base_url, env='PROD', host=None, inline=Fals
   
   for el in soup.findAll(re.compile("^ve-.+")):
     el.attrs = dict([(k,v if v != 'true' else None) for k,v in el.attrs.items()])
+  
+    if el.name in ('ve-image', 've-video'):
+      el.name = 've-media'
 
   add_hypothesis = soup.find('ve-add-hypothesis')
   custom_style = soup.find('ve-style')
@@ -430,11 +433,11 @@ def to_html(md_source, prefix, ref, base_url, env='PROD', host=None, inline=Fals
     
     if inline:
       # css += '\n' + fetch_css(f'{webapp_static_root_js}/{"base" if custom_style else "all"}.css', refresh=env=='DEV')
-      css += '\n' + fetch_css(f'{css_root}/juncture-digital.css', refresh=env=='DEV')
+      pass # css += '\n' + fetch_css(f'{css_root}/juncture-digital.css', refresh=env=='DEV')
     else:
       # add_link(template, f'{webapp_static_root_js}/{"base" if custom_style else "all"}.css', {'rel': 'stylesheet'})
       add_link(template, 'https://unpkg.com/juncture-digital/dist/juncture-digital/juncture-digital.css', {'rel': 'stylesheet'})
-      add_link(template, 'https://unpkg.com/juncture-digital-vue3/dist/assets/css/index.css', {'rel': 'stylesheet'})
+      add_link(template, 'https://unpkg.com/juncture-digital/dist/assets/css/index.css', {'rel': 'stylesheet'})
     if custom_style:
       if custom_style.attrs.get('href'):
         if custom_style.attrs['href'].startswith('http'):
